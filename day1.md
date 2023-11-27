@@ -21,78 +21,24 @@ require(gemma.R)
 a <- 1
 b <- 3
 typeof(a)
-```
-
-    ## [1] "double"
-
-``` r
 typeof(b)
-```
-
-    ## [1] "double"
-
-``` r
 str(a)
-```
-
-    ##  num 1
-
-``` r
 str(b)
-```
-
-    ##  num 3
-
-``` r
 a
-```
-
-    ## [1] 1
-
-``` r
 b
 ```
-
-    ## [1] 3
 
 ## Functions
 
 ``` r
 sum(a, b)
-```
-
-    ## [1] 4
-
-``` r
 a + b
-```
-
-    ## [1] 4
-
-``` r
 sum(5,6)
-```
-
-    ## [1] 11
-
-``` r
 c <- sum(a, b)
 (c <- sum(a, b))
-```
-
-    ## [1] 4
-
-``` r
 str(c)
-```
-
-    ##  num 4
-
-``` r
 sum(a,c)
 ```
-
-    ## [1] 5
 
 ``` r
 a <- "abc"
@@ -124,88 +70,20 @@ str(b)
 vec <- c(1,2,3,4,1,2,3)
 names(vec) <- LETTERS[1:4]
 str(vec)
-```
-
-    ##  Named num [1:7] 1 2 3 4 1 2 3
-    ##  - attr(*, "names")= chr [1:7] "A" "B" "C" "D" ...
-
-``` r
 sum(vec)
-```
-
-    ## [1] 16
-
-``` r
 mean(vec)
-```
-
-    ## [1] 2.285714
-
-``` r
 vec[2]
-```
-
-    ## B 
-    ## 2
-
-``` r
 vec[3]
-```
-
-    ## C 
-    ## 3
-
-``` r
 vec[6] # exceeding the range of the names, there is no value names
-```
-
-    ## <NA> 
-    ##    2
-
-``` r
 vec["A"]
-```
-
-    ## A 
-    ## 1
-
-``` r
 vec[c("A", "D")]
-```
-
-    ## A D 
-    ## 1 4
-
-``` r
 unique(vec)
-```
-
-    ## [1] 1 2 3 4
-
-``` r
 unique(names(vec)) # each index with no name is assigned <NA>
-```
-
-    ## [1] "A" "B" "C" "D" NA
-
-``` r
 1:10
-```
-
-    ##  [1]  1  2  3  4  5  6  7  8  9 10
-
-``` r
 -5:5
-```
-
-    ##  [1] -5 -4 -3 -2 -1  0  1  2  3  4  5
-
-``` r
 vec <- 10:1
 vec[2:3]
 ```
-
-    ## [1] 9 8
 
 Creating my own vector with the letters `B`, `C`, `D`
 
@@ -444,7 +322,7 @@ p <- pheatmap(cor(m, method="spearman"))
 p
 ```
 
-![](day1_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 Here the diagonal is set to `<NA>`
 
@@ -456,7 +334,7 @@ p <- pheatmap(cMT)
 p
 ```
 
-![](day1_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 Subsetting the matrix for 30 rows and first 10 columns
 
@@ -693,7 +571,7 @@ print(c(time.taken1,time.taken2))
 ```
 
     ## Time differences in secs
-    ## [1] 0.07663703 0.06722808
+    ## [1] 0.097296 0.104852
 
 Second pipe executes faster <br> Pipe 3
 
@@ -758,7 +636,7 @@ quantile(pull(sw, "bmi"), na.rm = TRUE)
 ggplot(sw, aes(x=mass, y=height)) + geom_point(na.rm = TRUE)
 ```
 
-![](day1_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 ``` r
 px <- ggplot(sw, aes(x=mass, y=height))
@@ -772,7 +650,7 @@ px + geom_hex()
 
     ## Warning: Removed 28 rows containing non-finite values (`stat_binhex()`).
 
-![](day1_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 ``` r
 px + geom_point(color = "red", shape = 1) + 
@@ -781,7 +659,7 @@ px + geom_point(color = "red", shape = 1) +
 
     ## Warning: Removed 28 rows containing missing values (`geom_point()`).
 
-![](day1_files/figure-gfm/unnamed-chunk-37-2.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-34-2.png)<!-- -->
 
 ``` r
 ggplot(sw, aes(x=height)) + geom_histogram()
@@ -791,7 +669,7 @@ ggplot(sw, aes(x=height)) + geom_histogram()
 
     ## Warning: Removed 6 rows containing non-finite values (`stat_bin()`).
 
-![](day1_files/figure-gfm/unnamed-chunk-37-3.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-34-3.png)<!-- -->
 
 ``` r
 ggplot(sw, aes(x=height)) + geom_density() + stat_ecdf()
@@ -801,7 +679,7 @@ ggplot(sw, aes(x=height)) + geom_density() + stat_ecdf()
 
     ## Warning: Removed 6 rows containing non-finite values (`stat_ecdf()`).
 
-![](day1_files/figure-gfm/unnamed-chunk-37-4.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-34-4.png)<!-- -->
 
 ``` r
 sw |> 
@@ -812,7 +690,7 @@ sw |>
     facet_grid(rows = vars(gender), space = "free_x", scales = "free_y")
 ```
 
-![](day1_files/figure-gfm/unnamed-chunk-37-5.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-34-5.png)<!-- -->
 
 ## Factors
 
@@ -824,7 +702,7 @@ ggplot(sw, aes(x=sex,y =height)) + geom_violin()
 
     ## Warning: Groups with fewer than two data points have been dropped.
 
-![](day1_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 ``` r
 sw |> 
@@ -834,7 +712,7 @@ sw |>
 
     ## Warning: Removed 5 rows containing non-finite values (`stat_ydensity()`).
 
-![](day1_files/figure-gfm/unnamed-chunk-38-2.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-35-2.png)<!-- -->
 
 ``` r
 str(sw$sex)
@@ -886,7 +764,7 @@ sw |>
 
     ## Warning: Removed 5 rows containing non-finite values (`stat_ydensity()`).
 
-![](day1_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+![](day1_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
 ## GEMMA
 
