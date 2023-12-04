@@ -20,7 +20,7 @@ data <- readRDS("data.RDS")
 design <- readRDS("design.RDS")
 gmap <- readRDS("gmap.RDS")
 
-#'## Subsetting the data
+#'# Subsetting the data
 #' Only working with liver_fibroblasts (Gp38 positive)
 
 sub.design <- design[grepl("Liver_Fibroblasts", row.names(design)),] |> 
@@ -36,7 +36,7 @@ dim(sub.design)
 
 #'20 observations in `sub.design`
 #+
-#'## Correlation analysis
+#'# Correlation analysis
 
 colnames(sub.data) <- gsub("^Liver_Fibroblasts_(.+)_RNA_(\\d)$", "\\1_\\2", colnames(sub.data)) # rename column names
 corMT <- cor(sub.data, method="spearman")
@@ -72,6 +72,7 @@ row.names(sub.design) <- gsub("^Liver_Fibroblasts_(.+)_RNA_(\\d)$", "\\1_\\2", r
 sub.design <- sub.design |> 
     mutate(stimulus = factor(stimulus, ordered = FALSE)) |> 
     mutate(stimulus = relevel(stimulus, "PBS")) # relevel to make PBS control
+
 model <- model.matrix(~stimulus, data=sub.design)
 Heatmap(model)
 
@@ -92,11 +93,12 @@ for(coefx in colnames(coef(limmaFit))){
     limmaRes[[coefx]] <- topTable(limmaFit, coef=coefx,number = Inf) |> 
         rownames_to_column("ensg")
 }
+
 limmaRes <- bind_rows(limmaRes, .id = "coef") 
 limmaRes <- filter(limmaRes, coef != "(Intercept)") 
 
-#'## Data interpretation
-#'### Vulcano plot
+#'# Data interpretation
+#'## Vulcano plot
 #'### Exercise 3.3
 
 threshold <- abs(limmaRes$logFC) > 2 & limmaRes$P.Value < 0.05 # set threshold
@@ -108,14 +110,14 @@ ggplot(limmaRes, aes(x = logFC, y= -log10(P.Value), color = threshold)) +
     geom_vline(xintercept = c(-2, 2)) +
     facet_wrap(coef~.)
 
-#'### P-value distribution
+#'## P-value distribution
 #'### Exercise 3.4
 #+ message=FALSE
 ggplot(limmaRes, aes(x=P.Value, fill=factor(floor(AveExpr)))) + 
     geom_histogram() +
     facet_wrap(coef~.)
 
-#'### Number of hits  
+#'## Number of hits  
 #'### Exercise 3.5
 
 limmaRes |> dplyr::count(coef)
@@ -133,8 +135,8 @@ limmaRes |>
 limmaResSig <- limmaRes |> 
     filter(adj.P.Val < 0.01 & AveExpr > -4 )
 
-#'## Visualizing results
-#'### Visualizing one gene
+#'# Visualizing results
+#'## Visualizing one gene
 #'### Exercise 3.6
 
 upregGenename <- limmaResSig |> 
