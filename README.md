@@ -10,3 +10,7 @@ Day 3: Introduction into R
 Day 4: First differential expresion
 
 Day 5: More complex example
+
+Day 6: Interaction term
+
+Day 7: Own dataset
